@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default function MovieDetail() {
+export const MovieDetail = () => {
   return (
     <div>MovieDetail</div>
   )
 }
+
