@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 
 export const MovieDetail = () => {
@@ -6,3 +7,10 @@ export const MovieDetail = () => {
   )
 }
 
+=======
+export const MovieDetail = () => {
+    return (
+        <main>MovieDetail</main>
+    )
+}
+>>>>>>> origin/master

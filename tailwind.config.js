@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module.exports = {
     content: ["./src/**/*.{html,js}"],
     darkMode: 'class',
@@ -13,6 +14,13 @@ module.exports = {
           }
         }
       },
+=======
+
+module.exports = {
+    content: ["./src/**/*.{html,js}"],
+    theme: {
+        extend: {},
+>>>>>>> origin/master
     },
     plugins: [],
 }
