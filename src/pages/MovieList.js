@@ -1,11 +1,23 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import { Card } from "../components/Card"
 
 export const MovieList = () => {
+    const [movies, setMovies] = useState([]);
+
+    useEffect (() => {
+        async function fetchMovies() {
+            const response = await fetch();
+            const data = await response.json();
+            setMovies(data.results);
+        }
+    })
     return (
         <main>
-            <div className="text-9xl bg-emerald-200 p-10 border-8 border-blue-700 rounded-l m-5">
-                MovieList
-            </div>
+            <section className='max-w-7xl mx-auto py-7'>
+                <div className='flex justify-start flex-wrap'>
+                    <Card/>
+                </div>
+            </section>
         </main>
     )
 }
