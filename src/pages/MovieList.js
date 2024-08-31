@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 import React from 'react'
 
-export const MovieList = () => {
-  return (
-    <div>MovieList</div>
-  )
-=======
 export const MovieList = () => {
     return (
         <main>
@@ -14,5 +8,4 @@ export const MovieList = () => {
             </div>
         </main>
     )
->>>>>>> origin/master
 }

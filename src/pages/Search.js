@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react'
 
 export const Search = () => {
@@ -8,10 +7,3 @@ export const Search = () => {
 }
 
 
-=======
-export const Search = () => {
-    return (
-        <div>Search</div>
-    )
-}
->>>>>>> origin/master
