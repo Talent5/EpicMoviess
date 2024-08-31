@@ -1,14 +1,10 @@
-@tailwind base;
-@tailwind components;
-<<<<<<< HEAD
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-main{
+main {
     max-width: 1280px;
     margin: auto;
     min-height: 90vh;
     padding: 10px;
 }
-=======
-@tailwind utilities;
->>>>>>> origin/master

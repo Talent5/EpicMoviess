@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import Backup from "../assets/images/backup.png"
 
@@ -20,10 +19,3 @@ export const Card = ({movie}) => {
     </div>
   )
 }
-=======
-export const Card = () => {
-    return (
-        <div>Card</div>
-    )
-}
->>>>>>> origin/master

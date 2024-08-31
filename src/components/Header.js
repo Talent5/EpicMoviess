@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -90,12 +89,4 @@ export const Header = () => {
       </nav>
     </header>
   )
-=======
-import React from 'react'
-
-export const Header = () => {
-    return (
-        <div>Header</div>
-    )
->>>>>>> origin/master
 }
