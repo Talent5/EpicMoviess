@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-export const useFetch = (apiPath) => {
+export const useFetch = (apiPath, queryTerm="") => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -12,6 +12,9 @@ export const useFetch = (apiPath) => {
       const url = new URL(`https://api.themoviedb.org/3/${apiPath}`);
       url.searchParams.append('api_key', process.env.REACT_APP_API_KEY);
       url.searchParams.append('page', page.toString());
+      if (queryTerm) {
+        url.searchParams.append('query', queryTerm);
+      }
 
       const response = await fetch(url);
       const json = await response.json();
@@ -25,11 +28,13 @@ export const useFetch = (apiPath) => {
       console.error("Error fetching movies:", error);
     }
     setLoading(false);
-  }, [apiPath, page]);
+  }, [apiPath, page, queryTerm]);
 
   useEffect(() => {
+    // Reset page and fetch new data when queryTerm changes
+    resetData();
     fetchMovies();
-  }, [fetchMovies]);
+  }, [fetchMovies, queryTerm]);
 
   const loadMore = () => {
     if (!loading && hasMore) {
