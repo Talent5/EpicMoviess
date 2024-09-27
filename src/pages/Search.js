@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { Card } from "../components/Card";
 import { useFetch } from "../hooks/useFetch";
+import { useEffect } from "react";
 
 export const Search = ({ apiPath }) => {
   const [searchParams] = useSearchParams();
@@ -12,6 +13,11 @@ export const Search = ({ apiPath }) => {
     if (movies.length === 0) return `No results found for '${queryTerm}'`;
     return `Results for '${queryTerm}'`;
   };
+
+    useEffect (() =>
+  {
+    document.title= `Search results for ${queryTerm} - Epic Movies `
+  })
 
   return (
     <main>

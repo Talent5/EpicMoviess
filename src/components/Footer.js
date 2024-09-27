@@ -9,19 +9,16 @@ export const Footer = () => {
         </span>
         <ul className="flex flex-wrap justify-center md:justify-end items-center text-sm text-gray-500 dark:text-gray-400">
           <li>
-            <a href="https://www.instagram.com/shubham.ul/" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">Instagram</a>
+            <a href="https://instagram.com/https://www.instagram.com/boiali5/" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">Instagram</a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/shubhamsarda/" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">LinkedIn</a>
+            <a href="www.linkedin.com/in/talent-mundwa-a7b545270" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">LinkedIn</a>
           </li>
           <li>
-            <a href="https://twitter.com/shubham_ul" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">Twitter</a>
+            <a href="https://x.com/https://twitter.com/BoiAli3" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">Twitter</a>
           </li>
           <li>
-            <a href="https://www.youtube.com/channel/UCuH_UB-L_PaVQSBoOqp0cqw" target="_blank" rel="noreferrer" className="hover:underline mr-4 md:mr-6">Youtube</a>
-          </li>
-          <li>
-            <a href="https://github.com/ShubhamSarda" target="_blank" rel="noreferrer" className="hover:underline">Github</a>
+            <a href="https://github.com/Talent5" target="_blank" rel="noreferrer" className="hover:underline">Github</a>
           </li>
         </ul>
       </div>
