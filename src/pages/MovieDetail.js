@@ -1,3 +1,5 @@
+
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
@@ -99,19 +101,20 @@ export const MovieDetail = ({title}) => {
             <span>{movie.status}</span>
           </p>
 
-          {/* Movie Trailer */}
+          {/* Responsive Movie Trailer */}
           {trailer ? (
             <div className="my-4">
               <h2 className="text-2xl font-bold">Watch the Trailer</h2>
-              <iframe
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${trailer}`}
-                title="Movie Trailer"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+              <div className="relative" style={{ paddingBottom: '56.25%', height: 0 }}> {/* 16:9 Aspect Ratio */}
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src={`https://www.youtube.com/embed/${trailer}`}
+                  title="Movie Trailer"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           ) : (
             <p>No trailer available</p>
@@ -121,4 +124,3 @@ export const MovieDetail = ({title}) => {
     </main>
   )
 }
-
