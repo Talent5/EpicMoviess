@@ -1,60 +1,26 @@
 import { Card, Skeleton, Hero, Recommendations } from "../components";
 import { useFetch } from "../hooks/useFetch";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 export const MovieList = ({ apiPath, title }) => {
   const { data: movies, loading, hasMore, loadMore, genres, selectedGenre, changeGenre } =
     useFetch(apiPath);
   const isHome = title === "Home";
-  const scrollRef = useRef(null);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-
-  const checkScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
-  };
-
-  useEffect(() => {
-    checkScroll();
-    const el = scrollRef.current;
-    if (el) el.addEventListener("scroll", checkScroll, { passive: true });
-    return () => { if (el) el.removeEventListener("scroll", checkScroll); };
-  }, [genres]);
 
   useEffect(() => {
     document.title = `${title} - Epic Movies`;
   }, [title]);
-
-  const scroll = (dir) => {
-    if (scrollRef.current) scrollRef.current.scrollBy({ left: dir * 300, behavior: "smooth" });
-  };
 
   return (
     <main className="bg-deep-space">
       {isHome && <Hero />}
       {isHome && <Recommendations />}
 
-      <section className={`max-w-screen-2xl mx-auto ${isHome ? "-mt-20 relative z-10 pt-8" : "pt-20"}`}>
+      <section className="max-w-screen-2xl mx-auto pt-8">
         <div className="px-8 lg:px-16 mb-6">
-          {/* Genre Filter Bar */}
-          <div className="relative group/genres">
-            {canScrollLeft && (
-              <button
-                onClick={() => scroll(-1)}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-deep-space/80 hover:bg-deep-space text-silver hover:text-chalk-white p-1 transition-colors rounded-full"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-            )}
-            <div
-              ref={scrollRef}
-              className="flex gap-2 overflow-x-auto hide-scrollbar pb-1"
+          <div
+            className="flex gap-2 overflow-x-auto hide-scrollbar pb-1"
             >
               <button
                 onClick={() => changeGenre("")}
@@ -80,20 +46,6 @@ export const MovieList = ({ apiPath, title }) => {
                 </button>
               ))}
             </div>
-            {canScrollRight && (
-              <>
-                <button
-                  onClick={() => scroll(1)}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-deep-space/80 hover:bg-deep-space text-silver hover:text-chalk-white p-1 transition-colors rounded-full"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-deep-space to-transparent pointer-events-none" />
-              </>
-            )}
-          </div>
         </div>
 
         {/* Loading State */}
