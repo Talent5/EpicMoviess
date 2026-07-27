@@ -29,8 +29,13 @@ export const MovieDetail = () => {
         fetch(`https://api.themoviedb.org/3/movie/${params.id}/similar?api_key=${process.env.REACT_APP_API_KEY}`),
       ]);
       const [vidData, castData, simData] = await Promise.all([vidRes.json(), castRes.json(), simRes.json()]);
-      const t = vidData.results?.find((v) => v.type === "Trailer" && v.site === "YouTube");
+
+      const videos = vidData.results || [];
+      let t = videos.find((v) => v.type === "Trailer" && v.site === "YouTube");
+      if (!t) t = videos.find((v) => v.type === "Teaser" && v.site === "YouTube");
+      if (!t) t = videos.find((v) => v.site === "YouTube");
       if (t) setTrailer(t.key);
+
       setCast(castData.cast?.slice(0, 15) || []);
       setSimilar(simData.results?.slice(0, 12) || []);
     }
@@ -46,17 +51,15 @@ export const MovieDetail = () => {
   const fmtCurrency = (n) => n ? `$${n.toLocaleString()}` : "N/A";
 
   return (
-    <main className="bg-deep-space">
-      {/* Backdrop */}
+    <main className="bg-black">
       {backdrop && (
         <div className="relative h-[60vh] min-h-[500px]">
           <img src={backdrop} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-deep-space via-deep-space/60 to-deep-space/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-deep-space/80 via-transparent to-deep-space/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/40" />
         </div>
       )}
 
-      {/* Content */}
       <section className={`max-w-[1280px] mx-auto px-8 lg:px-16 ${backdrop ? "-mt-48" : "pt-20"} relative z-10`}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -64,147 +67,132 @@ export const MovieDetail = () => {
           transition={{ duration: 0.5 }}
           className="flex flex-col md:flex-row gap-8"
         >
-          <div className="flex-shrink-0 w-72 mx-auto md:mx-0">
-            <img src={image} alt={movie.title} className="w-full rounded-cards" />
+          <div className="flex-shrink-0 w-64 mx-auto md:mx-0">
+            <img src={image} alt={movie.title} className="w-full rounded-lg" />
           </div>
 
           <div className="flex-1">
-            <h1 className="text-heading md:text-[48px] font-black text-chalk-white leading-tight mb-3">
+            <h1 className="text-4xl md:text-5xl font-black text-white leading-tight mb-2">
               {movie.title}
             </h1>
             {movie.tagline && (
-              <p className="text-subheading text-silver italic mb-6">{movie.tagline}</p>
+              <p className="text-lg text-gray-400 italic mb-5">{movie.tagline}</p>
             )}
 
-            <div className="flex flex-wrap items-center gap-3 mb-6">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
               {movie.vote_average > 0 && (
-                <span className="flex items-center gap-1.5 text-subheading font-bold text-chalk-white">
+                <span className="flex items-center gap-1.5 text-lg font-bold text-white">
                   <svg className="w-5 h-5 text-netflix-red" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   {movie.vote_average.toFixed(1)}
-                  <span className="text-silver text-body font-normal">/ 10 · {movie.vote_count?.toLocaleString()} votes</span>
+                  <span className="text-gray-400 text-sm font-normal">/10 &middot; {movie.vote_count?.toLocaleString()} votes</span>
                 </span>
               )}
             </div>
 
             {movie.genres && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-5">
                 {movie.genres.map((g) => (
-                  <span key={g.id} className="px-4 py-1.5 bg-charcoal text-chalk-white text-caption font-medium rounded-buttons">
+                  <span key={g.id} className="px-3 py-1 bg-white/10 text-gray-200 text-[13px] font-medium rounded">
                     {g.name}
                   </span>
                 ))}
               </div>
             )}
 
-            <p className="text-body text-silver leading-relaxed mb-8 max-w-2xl">{movie.overview}</p>
+            <p className="text-sm text-gray-300 leading-relaxed mb-6 max-w-2xl">{movie.overview}</p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div>
-                <p className="text-caption text-ash mb-1">Status</p>
-                <p className="text-body text-chalk-white font-medium">{movie.status || "N/A"}</p>
+                <p className="text-[11px] text-gray-500 mb-1">STATUS</p>
+                <p className="text-sm text-white font-medium">{movie.status || "N/A"}</p>
               </div>
               <div>
-                <p className="text-caption text-ash mb-1">Runtime</p>
-                <p className="text-body text-chalk-white font-medium">{movie.runtime ? `${movie.runtime} min` : "N/A"}</p>
+                <p className="text-[11px] text-gray-500 mb-1">RUNTIME</p>
+                <p className="text-sm text-white font-medium">{movie.runtime ? `${movie.runtime}m` : "N/A"}</p>
               </div>
               <div>
-                <p className="text-caption text-ash mb-1">Budget</p>
-                <p className="text-body text-chalk-white font-medium">{fmtCurrency(movie.budget)}</p>
+                <p className="text-[11px] text-gray-500 mb-1">BUDGET</p>
+                <p className="text-sm text-white font-medium">{fmtCurrency(movie.budget)}</p>
               </div>
               <div>
-                <p className="text-caption text-ash mb-1">Revenue</p>
-                <p className="text-body text-chalk-white font-medium">{fmtCurrency(movie.revenue)}</p>
+                <p className="text-[11px] text-gray-500 mb-1">REVENUE</p>
+                <p className="text-sm text-white font-medium">{fmtCurrency(movie.revenue)}</p>
               </div>
               <div>
-                <p className="text-caption text-ash mb-1">Release Date</p>
-                <p className="text-body text-chalk-white font-medium">{movie.release_date || "N/A"}</p>
+                <p className="text-[11px] text-gray-500 mb-1">RELEASE</p>
+                <p className="text-sm text-white font-medium">{movie.release_date || "N/A"}</p>
               </div>
               <div>
-                <p className="text-caption text-ash mb-1">IMDB</p>
+                <p className="text-[11px] text-gray-500 mb-1">IMDB</p>
                 {movie.imdb_id ? (
-                  <a
-                    href={`https://www.imdb.com/title/${movie.imdb_id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-body text-netflix-red font-medium hover:underline"
-                  >
+                  <a href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank" rel="noreferrer" className="text-sm text-netflix-red font-medium hover:underline">
                     {movie.imdb_id}
                   </a>
                 ) : (
-                  <p className="text-body text-chalk-white font-medium">N/A</p>
+                  <p className="text-sm text-white font-medium">N/A</p>
                 )}
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Trailer */}
         {trailer && (
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-12 max-w-4xl"
+            className="mt-14 max-w-4xl"
           >
-            <h2 className="text-heading-sm font-black text-chalk-white mb-6">Trailer</h2>
-            <div className="relative rounded-cards overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+            <h2 className="text-2xl font-black text-white mb-5">Watch Trailer</h2>
+            <div className="relative rounded-lg overflow-hidden bg-black" style={{ paddingBottom: "56.25%" }}>
               <iframe
-                className="absolute top-0 left-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${trailer}`}
-                title="Trailer"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className="absolute inset-0 w-full h-full"
+                src={`https://www.youtube-nocookie.com/embed/${trailer}?rel=0&modestbranding=1`}
+                title="Movie Trailer"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                style={{ border: "none" }}
               />
             </div>
           </motion.section>
         )}
 
-        {/* Cast */}
         {cast.length > 0 && (
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mt-12"
+            className="mt-14"
           >
-            <h2 className="text-heading-sm font-black text-chalk-white mb-6">Cast</h2>
+            <h2 className="text-2xl font-black text-white mb-5">Cast</h2>
             <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
               {cast.map((actor) => (
-                <div key={actor.id} className="flex-shrink-0 w-32 text-center group">
-                  <div className="w-28 h-28 mx-auto rounded-full overflow-hidden bg-charcoal mb-2">
+                <div key={actor.id} className="flex-shrink-0 w-28 text-center">
+                  <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gray-800 mb-2">
                     {actor.profile_path ? (
-                      <img
-                        src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
-                        alt={actor.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
+                      <img src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`} alt={actor.name} className="w-full h-full object-cover" loading="lazy" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-chalk-white text-xl font-bold">
-                        {actor.name?.charAt(0)}
-                      </div>
+                      <div className="w-full h-full flex items-center justify-center text-white text-xl font-bold">{actor.name?.charAt(0)}</div>
                     )}
                   </div>
-                  <p className="text-caption text-chalk-white truncate font-medium">{actor.name}</p>
-                  <p className="text-[11px] text-ash truncate">{actor.character}</p>
+                  <p className="text-[13px] text-white truncate font-medium">{actor.name}</p>
+                  <p className="text-[11px] text-gray-500 truncate">{actor.character}</p>
                 </div>
               ))}
             </div>
           </motion.section>
         )}
 
-        {/* Similar */}
         {similar.length > 0 && (
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-12 mb-12"
+            className="mt-14 mb-16"
           >
-            <h2 className="text-heading-sm font-black text-chalk-white mb-6">More Like This</h2>
+            <h2 className="text-2xl font-black text-white mb-5">More Like This</h2>
             <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
               {similar.map((movie, idx) => (
                 <div key={movie.id} className="flex-shrink-0 w-[180px]">
