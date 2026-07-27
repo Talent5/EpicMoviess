@@ -205,9 +205,11 @@ export const MovieDetail = () => {
             className="mt-12 mb-12"
           >
             <h2 className="text-heading-sm font-black text-chalk-white mb-6">More Like This</h2>
-            <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
+            <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
               {similar.map((movie, idx) => (
-                <Card key={movie.id} movie={movie} index={idx} />
+                <div key={movie.id} className="flex-shrink-0 w-[180px]">
+                  <Card movie={movie} index={idx} />
+                </div>
               ))}
             </div>
           </motion.section>

@@ -13,11 +13,11 @@ export const Card = ({ movie, index = 0 }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.04 }}
-      className="flex-shrink-0 group"
+      className="group"
     >
       <Link to={`/movie/${id}`} className="block">
-        <div className="w-[200px] overflow-hidden rounded-cards smooth-hover hover:scale-105">
-          <div className="aspect-[2/3] bg-charcoal overflow-hidden">
+        <div className="w-full rounded-cards smooth-hover hover:scale-105">
+          <div className="aspect-[2/3] bg-charcoal overflow-hidden rounded-cards">
             <img
               src={image}
               alt={title}
@@ -43,9 +43,11 @@ export const CardRow = ({ movies, title }) => {
   return (
     <section className="mb-16">
       <h2 className="text-subheading font-bold text-chalk-white mb-4 px-8 lg:px-16">{title}</h2>
-      <div className="flex gap-2 px-8 lg:px-16 overflow-x-auto hide-scrollbar pb-2">
+      <div className="flex gap-3 px-8 lg:px-16 overflow-x-auto hide-scrollbar pb-2">
         {movies.map((movie, index) => (
-          <Card key={movie.id} movie={movie} index={index} />
+          <div key={movie.id} className="flex-shrink-0 w-[180px]">
+            <Card movie={movie} index={index} />
+          </div>
         ))}
       </div>
     </section>

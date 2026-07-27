@@ -31,7 +31,7 @@ export const Search = ({ apiPath }) => {
         {loading && movies.length === 0 ? (
           <Skeleton count={8} />
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
             {movies.map((movie, index) => (
               <Card key={movie.id} movie={movie} index={index} />
             ))}
