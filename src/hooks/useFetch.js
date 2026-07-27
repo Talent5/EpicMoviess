@@ -10,6 +10,9 @@ export const useFetch = (apiPath, queryTerm = "") => {
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
   const abortRef = useRef(null);
+  const pageRef = useRef(1);
+
+  useEffect(() => { pageRef.current = page; }, [page]);
 
   useEffect(() => {
     async function fetchGenres() {
@@ -24,7 +27,7 @@ export const useFetch = (apiPath, queryTerm = "") => {
     fetchGenres();
   }, []);
 
-  const fetchMovies = useCallback(async () => {
+  const fetchMoviesForPage = useCallback(async (requestedPage) => {
     if (abortRef.current) abortRef.current.abort();
     const controller = new AbortController();
     abortRef.current = controller;
@@ -32,29 +35,36 @@ export const useFetch = (apiPath, queryTerm = "") => {
     try {
       const url = new URL(`https://api.themoviedb.org/3/${apiPath}`);
       url.searchParams.append("api_key", process.env.REACT_APP_API_KEY);
-      url.searchParams.append("page", page.toString());
+      url.searchParams.append("page", requestedPage.toString());
       if (queryTerm) url.searchParams.append("query", queryTerm);
       if (selectedGenre) url.searchParams.append("with_genres", selectedGenre);
       const response = await fetch(url, { signal: controller.signal });
       const json = await response.json();
       if (!response.ok || !json.results) throw new Error(json.status_message || `HTTP ${response.status}`);
       if (json.results.length === 0) { setHasMore(false); }
-      else { setData((prev) => page === 1 ? json.results : [...prev, ...json.results]); }
+      else { setData((prev) => requestedPage === 1 ? json.results : [...prev, ...json.results]); }
     } catch (error) {
       if (error.name !== "AbortError") console.error("Error fetching movies:", error);
     }
     setLoading(false);
-  }, [apiPath, page, queryTerm, selectedGenre]);
+  }, [apiPath, queryTerm, selectedGenre]);
 
   useEffect(() => {
-    resetData();
-    fetchMovies();
+    if (abortRef.current) abortRef.current.abort();
+    setData([]);
+    setPage(1);
+    setHasMore(true);
+    fetchMoviesForPage(1);
     return () => { if (abortRef.current) abortRef.current.abort(); };
-  }, [fetchMovies, queryTerm, selectedGenre]);
+  }, [fetchMoviesForPage, queryTerm, selectedGenre]);
+
+  useEffect(() => {
+    if (page === 1) return;
+    fetchMoviesForPage(page);
+  }, [page, fetchMoviesForPage]);
 
   const loadMore = () => { if (!loading && hasMore) setPage((prev) => prev + 1); };
-  const resetData = () => { if (abortRef.current) abortRef.current.abort(); setData([]); setPage(1); setHasMore(true); };
   const changeGenre = (id) => setSelectedGenre(id);
 
-  return { data, loading, hasMore, loadMore, resetData, genres, selectedGenre, changeGenre };
+  return { data, loading, hasMore, loadMore, genres, selectedGenre, changeGenre };
 };
