@@ -19,6 +19,10 @@ export const useFetch = (apiPath, queryTerm="") => {
       const response = await fetch(url);
       const json = await response.json();
       
+      if (!response.ok || !json.results) {
+        throw new Error(json.status_message || `HTTP ${response.status}`);
+      }
+      
       if (json.results.length === 0) {
         setHasMore(false);
       } else {
