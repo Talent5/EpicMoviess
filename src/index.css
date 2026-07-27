@@ -22,7 +22,8 @@
 }
 
 body {
-  @apply bg-deep-space text-chalk-white;
+  background-color: #000000;
+  color: #ffffff;
   font-family: 'Netflix Sans', Roboto, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
