@@ -57,12 +57,12 @@ export const MovieDetail = () => {
       )}
 
       {/* Content */}
-      <section className={`max-w-[1280px] mx-auto px-16 ${backdrop ? "-mt-56" : "pt-24"} relative z-10`}>
+      <section className={`max-w-[1280px] mx-auto px-8 lg:px-16 ${backdrop ? "-mt-48" : "pt-20"} relative z-10`}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row gap-12"
+          className="flex flex-col md:flex-row gap-8"
         >
           <div className="flex-shrink-0 w-72 mx-auto md:mx-0">
             <img src={image} alt={movie.title} className="w-full rounded-cards" />
@@ -146,7 +146,7 @@ export const MovieDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-16 max-w-4xl"
+            className="mt-12 max-w-4xl"
           >
             <h2 className="text-heading-sm font-black text-chalk-white mb-6">Trailer</h2>
             <div className="relative rounded-cards overflow-hidden" style={{ paddingBottom: "56.25%" }}>
@@ -168,7 +168,7 @@ export const MovieDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mt-16"
+            className="mt-12"
           >
             <h2 className="text-heading-sm font-black text-chalk-white mb-6">Cast</h2>
             <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
@@ -202,7 +202,7 @@ export const MovieDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-16 mb-16"
+            className="mt-12 mb-12"
           >
             <h2 className="text-heading-sm font-black text-chalk-white mb-6">More Like This</h2>
             <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2">

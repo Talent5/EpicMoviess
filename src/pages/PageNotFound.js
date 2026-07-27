@@ -9,8 +9,8 @@ export const PageNotFound = () => {
   }, []);
 
   return (
-    <main className="bg-deep-space pt-24">
-      <section className="max-w-[1280px] mx-auto px-16 flex flex-col items-center py-16">
+    <main className="bg-deep-space pt-20">
+      <section className="max-w-[1280px] mx-auto px-8 lg:px-16 flex flex-col items-center py-16">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

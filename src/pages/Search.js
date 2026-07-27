@@ -14,8 +14,8 @@ export const Search = ({ apiPath }) => {
   }, [queryTerm]);
 
   return (
-    <main className="bg-deep-space pt-24">
-      <section className="max-w-[1920px] mx-auto px-16">
+    <main className="bg-deep-space pt-20">
+      <section className="max-w-screen-2xl mx-auto px-8 lg:px-16">
         <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

@@ -16,9 +16,9 @@ export const MovieList = ({ apiPath, title }) => {
     <main className="bg-deep-space">
       {isHome && <Hero />}
 
-      <section className={`max-w-[1920px] mx-auto ${isHome ? "-mt-16 relative z-10 pt-8" : "pt-24"}`}>
+      <section className={`max-w-screen-2xl mx-auto ${isHome ? "-mt-20 relative z-10 pt-8" : "pt-20"}`}>
         {/* Genre Filter */}
-        <div className="flex items-center gap-2 px-16 mb-8 overflow-x-auto hide-scrollbar">
+        <div className="flex items-center gap-2 px-8 lg:px-16 mb-8 overflow-x-auto hide-scrollbar">
           <button
             onClick={() => changeGenre("")}
             className={`px-5 py-1.5 rounded-buttons text-caption font-medium whitespace-nowrap transition-all ${
@@ -52,7 +52,7 @@ export const MovieList = ({ apiPath, title }) => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex flex-wrap gap-2 px-16"
+              className="flex flex-wrap gap-2 px-8 lg:px-16"
             >
               {movies.map((movie, index) => (
                 <Card key={movie.id} movie={movie} index={index} />

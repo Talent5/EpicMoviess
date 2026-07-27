@@ -5,7 +5,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-deep-space border-t border-slate/20">
-      <div className="max-w-[1280px] mx-auto px-16 py-12">
+      <div className="max-w-[1280px] mx-auto px-8 lg:px-16 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           {[
             { label: "Home", to: "/" },

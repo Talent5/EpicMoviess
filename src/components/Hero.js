@@ -41,7 +41,7 @@ export const Hero = () => {
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3 }}
-        className="relative h-full max-w-[1280px] mx-auto px-16 flex flex-col justify-center"
+        className="relative h-full max-w-[1280px] mx-auto px-8 lg:px-16 flex flex-col justify-center"
       >
         <div className="max-w-xl">
           <h1 className="text-display md:text-[80px] font-black text-chalk-white leading-none mb-6 drop-shadow-lg tracking-tight">

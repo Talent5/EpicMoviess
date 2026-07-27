@@ -17,8 +17,8 @@ export const Header = ({ isRoot }) => {
 
   return (
     <header className={`sticky top-0 z-50 transition-colors duration-500 ${isRoot ? "bg-transparent" : "bg-deep-space"}`}>
-      <nav className="flex items-center justify-between px-16 py-4 max-w-[1920px] mx-auto">
-        <div className="flex items-center gap-12">
+      <nav className="flex items-center justify-between px-8 lg:px-16 py-4 max-w-screen-2xl mx-auto">
+        <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2">
             <img src={Logo} className="h-8" alt="EpicMovies" />
             <span className="text-netflix-red text-2xl font-black tracking-tight hidden sm:block">

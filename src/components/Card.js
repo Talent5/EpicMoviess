@@ -42,8 +42,8 @@ export const CardRow = ({ movies, title }) => {
 
   return (
     <section className="mb-16">
-      <h2 className="text-subheading font-bold text-chalk-white mb-4 px-16">{title}</h2>
-      <div className="flex gap-2 px-16 overflow-x-auto hide-scrollbar pb-2">
+      <h2 className="text-subheading font-bold text-chalk-white mb-4 px-8 lg:px-16">{title}</h2>
+      <div className="flex gap-2 px-8 lg:px-16 overflow-x-auto hide-scrollbar pb-2">
         {movies.map((movie, index) => (
           <Card key={movie.id} movie={movie} index={index} />
         ))}

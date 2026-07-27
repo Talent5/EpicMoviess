@@ -1,6 +1,6 @@
 export const Skeleton = ({ count = 8 }) => {
   return (
-    <div className="flex gap-2 px-16">
+    <div className="flex gap-2 px-8 lg:px-16">
       {Array.from({ length: count }, (_, i) => (
         <div key={i} className="flex-shrink-0 w-[200px]">
           <div className="aspect-[2/3] bg-charcoal rounded-cards animate-pulse" />
