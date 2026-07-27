@@ -78,7 +78,7 @@ export const Header = ({ isRoot }) => {
                   name="search"
                   autoFocus
                   placeholder="Titles, people, genres"
-                  className="w-full bg-graphite border border-slate text-chalk-white text-caption px-4 py-2 rounded-inputs outline-none focus:border-silver placeholder:text-ash"
+                  className="w-full bg-gray-800 border border-gray-600 text-white text-sm px-4 py-2 rounded outline-none focus:border-gray-400 placeholder:text-gray-500"
                   autoComplete="off"
                   onBlur={() => setShowSearch(false)}
                 />
