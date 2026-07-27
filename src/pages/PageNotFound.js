@@ -1,37 +1,38 @@
-import { Link } from "react-router-dom"
-import PageNotFoundImage from "../assets/images/pagenotfound.png"
-import { useEffect } from "react"
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import PageNotFoundImage from "../assets/images/pagenotfound.png";
+import { useEffect } from "react";
 
 export const PageNotFound = () => {
+  useEffect(() => {
+    document.title = "404 - Page Not Found | EpicMovies";
+  }, []);
 
-    useEffect (() =>
-    {
-        document.title = "404 Page Not Found - EpicMovies"
-    })
-
-
-
-    return (
-        <main>
-            <section className="flex flex-col justify-center px-2">
-                <div className="flex flex-col items-center my-4">
-                    <p className="text-7xl text-gray-700 font-bold my-10 dark:text-white">404, Ooops!</p>
-                    <div className="max-w-lg">
-                        <img className="rounded" src={PageNotFoundImage} alt="404 Page Not Found" />
-                    </div>
-
-                </div>
-                <div className="flex justify-center my-4 ">
-                    <Link to="/">
-                        <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
-                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Back To EpicMovies
-                        </span>
-                        </button>
-                    </Link>
-                </div>
-
-            </section>
-        </main>
-    )
-}
+  return (
+    <main>
+      <section className="flex flex-col justify-center px-4 py-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex flex-col items-center"
+        >
+          <p className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+            404
+          </p>
+          <p className="text-2xl text-gray-600 dark:text-gray-400 mb-8">
+            Lost in the movies? This page doesn't exist.
+          </p>
+          <div className="max-w-md mb-10">
+            <img className="rounded-xl shadow-2xl" src={PageNotFoundImage} alt="404" />
+          </div>
+          <Link
+            to="/"
+            className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden text-sm font-semibold text-white rounded-full bg-gradient-to-br from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 shadow-lg"
+          >
+            Back To Home
+          </Link>
+        </motion.div>
+      </section>
+    </main>
+  );
+};
