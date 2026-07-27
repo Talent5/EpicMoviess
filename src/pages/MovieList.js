@@ -1,4 +1,4 @@
-import { Card, Skeleton, Hero, Recommendations } from "../components";
+import { Card, Skeleton, Hero } from "../components";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -15,7 +15,6 @@ export const MovieList = ({ apiPath, title }) => {
   return (
     <main className="bg-deep-space">
       {isHome && <Hero />}
-      {isHome && <Recommendations />}
 
       <section className="max-w-screen-2xl mx-auto pt-8">
         <div className="px-8 lg:px-16 mb-6">
