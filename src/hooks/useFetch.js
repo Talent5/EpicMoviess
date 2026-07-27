@@ -10,9 +10,6 @@ export const useFetch = (apiPath, queryTerm = "") => {
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
   const abortRef = useRef(null);
-  const pageRef = useRef(1);
-
-  useEffect(() => { pageRef.current = page; }, [page]);
 
   useEffect(() => {
     async function fetchGenres() {
@@ -27,17 +24,41 @@ export const useFetch = (apiPath, queryTerm = "") => {
     fetchGenres();
   }, []);
 
+  const resolveApiPath = useCallback(() => {
+    if (queryTerm) return `search/movie`;
+    if (selectedGenre) {
+      const sortMap = {
+        "movie/now_playing": "popularity.desc",
+        "movie/popular": "popularity.desc",
+        "movie/top_rated": "vote_average.desc",
+        "movie/upcoming": "release_date.asc",
+      };
+      const sortBy = sortMap[apiPath] || "popularity.desc";
+      return `discover/movie?sort_by=${sortBy}`;
+    }
+    return apiPath;
+  }, [apiPath, queryTerm, selectedGenre]);
+
   const fetchMoviesForPage = useCallback(async (requestedPage) => {
     if (abortRef.current) abortRef.current.abort();
     const controller = new AbortController();
     abortRef.current = controller;
     setLoading(true);
     try {
-      const url = new URL(`https://api.themoviedb.org/3/${apiPath}`);
+      const path = resolveApiPath();
+      const basePath = path.includes("?") ? path.split("?")[0] : path;
+      const url = new URL(`https://api.themoviedb.org/3/${basePath}`);
       url.searchParams.append("api_key", process.env.REACT_APP_API_KEY);
       url.searchParams.append("page", requestedPage.toString());
+
+      if (path.includes("?")) {
+        const params = new URLSearchParams(path.split("?")[1]);
+        params.forEach((v, k) => url.searchParams.append(k, v));
+      }
+
       if (queryTerm) url.searchParams.append("query", queryTerm);
       if (selectedGenre) url.searchParams.append("with_genres", selectedGenre);
+
       const response = await fetch(url, { signal: controller.signal });
       const json = await response.json();
       if (!response.ok || !json.results) throw new Error(json.status_message || `HTTP ${response.status}`);
@@ -47,7 +68,7 @@ export const useFetch = (apiPath, queryTerm = "") => {
       if (error.name !== "AbortError") console.error("Error fetching movies:", error);
     }
     setLoading(false);
-  }, [apiPath, queryTerm, selectedGenre]);
+  }, [resolveApiPath, queryTerm, selectedGenre]);
 
   useEffect(() => {
     if (abortRef.current) abortRef.current.abort();
