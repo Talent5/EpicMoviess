@@ -14,20 +14,24 @@ export const Search = ({ apiPath }) => {
   }, [queryTerm]);
 
   return (
-    <main>
-      <section className="max-w-7xl mx-auto py-7 px-4">
+    <main className="bg-deep-space pt-24">
+      <section className="max-w-[1920px] mx-auto px-16">
         <motion.h2
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-heading-sm font-black text-chalk-white mb-8"
         >
-          {loading ? "Searching..." : movies.length === 0 ? `No results found for '${queryTerm}'` : `Results for '${queryTerm}'`}
+          {loading
+            ? "Searching..."
+            : movies.length === 0
+            ? `No results for "${queryTerm}"`
+            : `Results for "${queryTerm}"`}
         </motion.h2>
 
         {loading && movies.length === 0 ? (
           <Skeleton count={8} />
         ) : (
-          <div className="flex justify-start flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {movies.map((movie, index) => (
               <Card key={movie.id} movie={movie} index={index} />
             ))}
@@ -35,16 +39,16 @@ export const Search = ({ apiPath }) => {
         )}
 
         {loading && movies.length > 0 && (
-          <div className="flex justify-center py-8">
-            <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <div className="flex justify-center py-12">
+            <div className="w-10 h-10 border-2 border-silver border-t-netflix-red rounded-full animate-spin" />
           </div>
         )}
 
         {hasMore && !loading && (
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center py-8">
             <button
               onClick={loadMore}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+              className="bg-netflix-red hover:bg-[#f40612] text-chalk-white font-bold text-body px-8 py-3 rounded-buttons transition-all duration-300 hover:scale-105"
             >
               Load More
             </button>
